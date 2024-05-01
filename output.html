@@ -1,0 +1,1709 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="15k+ course enrollments, grades, and reviews. Updated daily.">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+    <title>UCSB Platinum . Courses</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .navy {
+            color: #083c63;
+        }
+        .toastui-calendar-detail-container {
+            width: 301px;
+            min-width: 301px;
+            box-shadow: 0 2px 6px 0 rgb(0 0 0 / 10%);
+            background-color: white;
+            padding: 17px 17px 0;
+            border-radius: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J9QBND5X1R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J9QBND5X1R');
+</script>
+
+<body data-bs-theme="light">
+
+
+    
+
+
+
+    <nav class="navbar sticky-top navbar-expand bg-body py-xl-3 pb-0 border-bottom mb-2 mb-lg-4">
+        <div class="container d-flex flex-wrap justify-content-between">
+            <div class="d-none d-xl-flex">
+                <a class="navbar-brand fw-bold navy" href="/">
+                    <img src="/static/gaucho.png" alt="Logo" height="28px"
+                         class="d-inline-block align-text-top">
+                    Platinum
+                </a>
+                <div class="navbar-nav">
+                    
+    
+    
+    <a class="nav-item nav-link active" aria-current="page"
+       href="/curriculum/">
+        Courses 
+    </a>
+    
+
+                    
+    
+    
+    <a class="nav-item nav-link"
+       href="/instructor/">
+        Professors 
+    </a>
+    
+
+                </div>
+            </div>
+
+            <div class="flex-grow-1 mx-xl-4 d-flex">
+                <a class="d-none d-md-inline d-xl-none navbar-brand me-1" href="/">
+                    <img src="/static/gaucho.png" alt="Logo" height="28px"
+                         class="d-inline-block align-text-top">
+                </a>
+                
+    
+    
+    
+    <link rel="stylesheet" href="/static/searchbar.css" type="text/css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+    <style>
+        mark {
+            padding-left: 0 !important;
+            padding-right: 0 !important;;
+        }
+    </style>
+
+    <form class="d-flex justify-content-center align-items-baseline w-100"
+          autocomplete="off" action="/search" autocapitalize="off">
+        <input id="search-bar-884836" class="w-100" name="query" value="" type="search"
+               autocapitalize="off" autocomplete="off" autocorrect="off" required>
+        <button class="d-none d-lg-inline ms-2 btn btn-warning rounded-circle" type="submit" style="width:40px;height:40px">
+            <i class="bi bi-search" style="position:relative;left:-2px"></i>
+        </button>
+    </form>
+
+    <script>
+        const config = {
+            placeHolder: 'Search courses and professors',
+            selector: "#search-bar-884836",
+            debounce: 0,
+            searchEngine: "loose",
+            data: {
+                src: async (query) => {
+                    try {
+                        const autocomplete_url = new URL("/autocomplete", window.location.origin);
+                        autocomplete_url.searchParams.append('query', query);
+                        const source = await fetch(autocomplete_url.href);
+                        const data = await source.json();
+                        return data;
+                    } catch (error) {
+                        return error;
+                    }
+                },
+                keys: ['value']
+            },
+            submit: true,
+            events: {
+                input: {
+                    focus: () => {
+                        if (autoCompleteJS.input.value.length) autoCompleteJS.start();
+                    }
+                }
+            },
+            resultsList: {
+                element: (list, data) => {
+                    if (data.results.length === 0) {
+                        const info = document.createElement("p");
+                        info.classList.add('pt-2', 'px-3', 'text-secondary', 'text-sm');
+                        info.innerHTML = `Nothing found`;
+                        list.prepend(info);
+                    }
+                },
+                noResults: true,
+                maxResults: 10,
+                tabSelect: true
+            },
+            resultItem: {
+                highlight: true,
+                element: (item, data) => {
+                    item.style = "display: flex; justify-content: space-between;";
+                    item.innerHTML = `
+      <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+        ${data.match}
+      </span>
+      <span class="text-secondary" style="display: flex; align-items: center; font-size: 13px; font-weight: 100">
+        ${data.value.type}
+      </span>`;
+                }
+            },
+        }
+        const autoCompleteJS = new autoComplete(config);
+        $(".autoComplete_wrapper").addClass("w-100");
+        $(".autoComplete_wrapper > ul").addClass("bg-body");
+        
+        document.querySelector("#search-bar-884836").addEventListener("navigate", function (event) {
+            document.getElementById('search-bar-884836').value = event.detail.selection.value.value;
+        });
+        document.querySelector("#search-bar-884836").addEventListener("selection", function (event) {
+            document.getElementById('search-bar-884836').value = event.detail.selection.value.value;
+            document.getElementById('search-bar-884836').form.submit();
+        });
+    </script>
+
+                <div class="d-inline d-xl-none ms-2">
+                    
+    
+    
+    
+    <div class="nav-item dropdown">
+        <button class="btn rounded-pill bg-navy dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-brightness-high-fill"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-2" style="z-index:2000">
+            <li>
+                <a class="dropdown-item" href="/curriculum/?is_dark=False">
+                    <i class="bi bi-brightness-high-fill me-2"></i>
+                    Light
+                </a>
+            </li>
+            <li class="mt-2">
+                <a class="dropdown-item" href="/curriculum/?is_dark=True">
+                    <i class="bi bi-moon-stars-fill me-2"></i>
+                    Dark
+                </a>
+            </li>
+        </ul>
+    </div>
+
+                </div>
+            </div>
+
+            <div class="d-none d-xl-flex">
+                <div class="navbar-nav d-flex">
+                    
+    
+    
+    <a class="nav-item nav-link"
+       href="/ge/">
+        GEs 
+    </a>
+    
+
+                    
+    
+    
+    <a class="nav-item nav-link"
+       href="/schedule/">
+        Schedule 
+    </a>
+    
+
+                </div>
+                <div class="ms-3">
+    
+    
+    
+    <div class="nav-item dropdown">
+        <button class="btn rounded-pill bg-navy dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-brightness-high-fill"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-2" style="z-index:2000">
+            <li>
+                <a class="dropdown-item" href="/curriculum/?is_dark=False">
+                    <i class="bi bi-brightness-high-fill me-2"></i>
+                    Light
+                </a>
+            </li>
+            <li class="mt-2">
+                <a class="dropdown-item" href="/curriculum/?is_dark=True">
+                    <i class="bi bi-moon-stars-fill me-2"></i>
+                    Dark
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+            </div>
+
+            <div class="navbar-nav d-xl-none d-flex justify-content-between w-100" style="font-size:14px">
+                
+    
+    
+    <a class="nav-item nav-link"
+       href="/">
+        Home 
+    </a>
+    
+
+                
+    
+    
+    <a class="nav-item nav-link active" aria-current="page"
+       href="/curriculum/">
+        Courses 
+    </a>
+    
+
+                
+    
+    
+    <a class="nav-item nav-link"
+       href="/instructor/">
+        Professors 
+    </a>
+    
+
+                
+    
+    
+    <a class="nav-item nav-link"
+       href="/ge/">
+        GEs 
+    </a>
+    
+
+                
+    
+    
+    <a class="nav-item nav-link"
+       href="/schedule/">
+        Schedule 
+    </a>
+    
+
+            </div>
+        </div>
+    </nav>
+
+
+<div class="container mt-2 mt-lg-4">
+    
+    <h3 class="mt-4 navy fw-bold">Popular Majors</h3>
+    <div class="mt-2 p-1 row row-cols-2 row-cols-lg-4 g-3 g-lg-4">
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">COMM</h6>
+            <small class="text-secondary">41 courses</small>
+            <a class="stretched-link" href="/curriculum/major/COMM"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">PHYS</h6>
+            <small class="text-secondary">44 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PHYS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">ED</h6>
+            <small class="text-secondary">87 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ED"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">MATH</h6>
+            <small class="text-secondary">40 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MATH"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">PSTAT</h6>
+            <small class="text-secondary">27 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PSTAT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">HIST</h6>
+            <small class="text-secondary">29 courses</small>
+            <a class="stretched-link" href="/curriculum/major/HIST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">PSY</h6>
+            <small class="text-secondary">33 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PSY"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">MCDB</h6>
+            <small class="text-secondary">30 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MCDB"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">CHEM</h6>
+            <small class="text-secondary">28 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CHEM"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">WRIT</h6>
+            <small class="text-secondary">54 courses</small>
+            <a class="stretched-link" href="/curriculum/major/WRIT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">SOC</h6>
+            <small class="text-secondary">25 courses</small>
+            <a class="stretched-link" href="/curriculum/major/SOC"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            <div class="col">
+                
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">FEMST</h6>
+            <small class="text-secondary">13 courses</small>
+            <a class="stretched-link" href="/curriculum/major/FEMST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+    </div>
+    
+    <style>
+        #majors_navbar .nav-link.active {
+            color: #3D4952 !important;
+            background-color: #FEBC11 !important;
+        }
+    </style>
+
+    <div class="mt-4 mt-xl-5 position-sticky" style="top:80px;z-index:2000">
+        <nav id="majors_navbar" class="navbar bg-body px-4 mb-3 rounded-pill shadow-sm">
+            <a class="d-none d-xl-block navbar-brand fw-semibold navy">All Majors </a>
+            <div class="nav nav-pills">
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#A">
+                            A
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#B">
+                            B
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#C">
+                            C
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#D">
+                            D
+                        </a>
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#E">
+                            E
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#F">
+                            F
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#G">
+                            G
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#H">
+                            H
+                        </a>
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#I">
+                            I
+                        </a>
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#J">
+                            J
+                        </a>
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#K">
+                            K
+                        </a>
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#L">
+                            L
+                        </a>
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#M">
+                            M
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#P">
+                            P
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#R">
+                            R
+                        </a>
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#S">
+                            S
+                        </a>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#T">
+                            T
+                        </a>
+                    
+                
+                    
+                
+                    
+                        <a class="nav-link fw-bold text-warning" href="#W">
+                            W
+                        </a>
+                    
+                
+                    
+                
+            </div>
+        </nav>
+    </div>
+
+    
+<div data-bs-spy="scroll" data-bs-target="#majors_navbar"
+     data-bs-smooth-scroll="true" tabindex="0">
+    <div class="row g-3">
+        
+            
+                <div class="col-12">
+                    <h2 id="A" class="mt-3 text-warning fw-bold">
+                        A
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Anthropology - ANTH</h6>
+            <small class="text-secondary">21 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ANTH"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Art - ART</h6>
+            <small class="text-secondary">15 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ART"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Art History - ARTHI</h6>
+            <small class="text-secondary">12 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ARTHI"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Asian American Studies - AS AM</h6>
+            <small class="text-secondary">5 courses</small>
+            <a class="stretched-link" href="/curriculum/major/AS%20AM"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Astronomy - ASTRO</h6>
+            <small class="text-secondary">2 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ASTRO"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="B" class="mt-3 text-warning fw-bold">
+                        B
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Biology - BIOL</h6>
+            <small class="text-secondary">1 courses</small>
+            <a class="stretched-link" href="/curriculum/major/BIOL"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Black Studies - BL ST</h6>
+            <small class="text-secondary">9 courses</small>
+            <a class="stretched-link" href="/curriculum/major/BL%20ST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Biomolecular Science and Engineering - BMSE</h6>
+            <small class="text-secondary">1 courses</small>
+            <a class="stretched-link" href="/curriculum/major/BMSE"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="C" class="mt-3 text-warning fw-bold">
+                        C
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Comparative Literature - C LIT</h6>
+            <small class="text-secondary">14 courses</small>
+            <a class="stretched-link" href="/curriculum/major/C%20LIT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Chemical Engineering - CH E</h6>
+            <small class="text-secondary">7 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CH%20E"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Chicano Studies - CH ST</h6>
+            <small class="text-secondary">14 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CH%20ST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Chemistry and Biochemistry - CHEM</h6>
+            <small class="text-secondary">28 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CHEM"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Chinese - CHIN</h6>
+            <small class="text-secondary">6 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CHIN"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Classics - CLASS</h6>
+            <small class="text-secondary">9 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CLASS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Computer Science - CMPSC</h6>
+            <small class="text-secondary">16 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CMPSC"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Counseling, Clinical, School Psychology - CNCSP</h6>
+            <small class="text-secondary">16 courses</small>
+            <a class="stretched-link" href="/curriculum/major/CNCSP"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Communication - COMM</h6>
+            <small class="text-secondary">41 courses</small>
+            <a class="stretched-link" href="/curriculum/major/COMM"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="D" class="mt-3 text-warning fw-bold">
+                        D
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Dance - DANCE</h6>
+            <small class="text-secondary">11 courses</small>
+            <a class="stretched-link" href="/curriculum/major/DANCE"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Dynamical Neuroscience - DYNS</h6>
+            <small class="text-secondary">1 courses</small>
+            <a class="stretched-link" href="/curriculum/major/DYNS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="E" class="mt-3 text-warning fw-bold">
+                        E
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">East Asian Cultural Studies - EACS</h6>
+            <small class="text-secondary">2 courses</small>
+            <a class="stretched-link" href="/curriculum/major/EACS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Earth Science - EARTH</h6>
+            <small class="text-secondary">17 courses</small>
+            <a class="stretched-link" href="/curriculum/major/EARTH"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Electrical Computer Engineering - ECE</h6>
+            <small class="text-secondary">10 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ECE"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Economics - ECON</h6>
+            <small class="text-secondary">25 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ECON"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Education - ED</h6>
+            <small class="text-secondary">87 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ED"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Environmental Data Science - EDS</h6>
+            <small class="text-secondary">4 courses</small>
+            <a class="stretched-link" href="/curriculum/major/EDS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Ecology, Evolution &amp; Marine Biology - EEMB</h6>
+            <small class="text-secondary">17 courses</small>
+            <a class="stretched-link" href="/curriculum/major/EEMB"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">English - ENGL</h6>
+            <small class="text-secondary">35 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ENGL"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Engineering Sciences - ENGR</h6>
+            <small class="text-secondary">3 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ENGR"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Environmental Studies - ENV S</h6>
+            <small class="text-secondary">14 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ENV%20S"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Environmental Science &amp; Management - ESM</h6>
+            <small class="text-secondary">5 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ESM"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Exercise &amp; Sport Studies - ESS</h6>
+            <small class="text-secondary">2 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ESS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="F" class="mt-3 text-warning fw-bold">
+                        F
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Film and Media Studies - FAMST</h6>
+            <small class="text-secondary">23 courses</small>
+            <a class="stretched-link" href="/curriculum/major/FAMST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Feminist Studies - FEMST</h6>
+            <small class="text-secondary">13 courses</small>
+            <a class="stretched-link" href="/curriculum/major/FEMST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">French - FR</h6>
+            <small class="text-secondary">9 courses</small>
+            <a class="stretched-link" href="/curriculum/major/FR"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="G" class="mt-3 text-warning fw-bold">
+                        G
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Geography - GEOG</h6>
+            <small class="text-secondary">15 courses</small>
+            <a class="stretched-link" href="/curriculum/major/GEOG"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">German - GER</h6>
+            <small class="text-secondary">10 courses</small>
+            <a class="stretched-link" href="/curriculum/major/GER"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Global Studies - GLOBL</h6>
+            <small class="text-secondary">9 courses</small>
+            <a class="stretched-link" href="/curriculum/major/GLOBL"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Greek - GREEK</h6>
+            <small class="text-secondary">1 courses</small>
+            <a class="stretched-link" href="/curriculum/major/GREEK"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="H" class="mt-3 text-warning fw-bold">
+                        H
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">History - HIST</h6>
+            <small class="text-secondary">29 courses</small>
+            <a class="stretched-link" href="/curriculum/major/HIST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="I" class="mt-3 text-warning fw-bold">
+                        I
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Interdisciplinary - INT</h6>
+            <small class="text-secondary">13 courses</small>
+            <a class="stretched-link" href="/curriculum/major/INT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Italian - ITAL</h6>
+            <small class="text-secondary">9 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ITAL"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="J" class="mt-3 text-warning fw-bold">
+                        J
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Japanese - JAPAN</h6>
+            <small class="text-secondary">7 courses</small>
+            <a class="stretched-link" href="/curriculum/major/JAPAN"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="K" class="mt-3 text-warning fw-bold">
+                        K
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Korean - KOR</h6>
+            <small class="text-secondary">3 courses</small>
+            <a class="stretched-link" href="/curriculum/major/KOR"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="L" class="mt-3 text-warning fw-bold">
+                        L
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Latin American and Iberian Studies - LAIS</h6>
+            <small class="text-secondary">5 courses</small>
+            <a class="stretched-link" href="/curriculum/major/LAIS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Linguistics - LING</h6>
+            <small class="text-secondary">17 courses</small>
+            <a class="stretched-link" href="/curriculum/major/LING"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="M" class="mt-3 text-warning fw-bold">
+                        M
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Marine Science - MARSC</h6>
+            <small class="text-secondary">3 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MARSC"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Media Arts and Technology - MAT</h6>
+            <small class="text-secondary">12 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MAT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Mathematics - MATH</h6>
+            <small class="text-secondary">40 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MATH"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Materials - MATRL</h6>
+            <small class="text-secondary">5 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MATRL"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Molecular, Cellular &amp; Develop. Biology - MCDB</h6>
+            <small class="text-secondary">30 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MCDB"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Mechanical Engineering - ME</h6>
+            <small class="text-secondary">15 courses</small>
+            <a class="stretched-link" href="/curriculum/major/ME"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Music - MUS</h6>
+            <small class="text-secondary">7 courses</small>
+            <a class="stretched-link" href="/curriculum/major/MUS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="P" class="mt-3 text-warning fw-bold">
+                        P
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Philosophy - PHIL</h6>
+            <small class="text-secondary">14 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PHIL"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Physics - PHYS</h6>
+            <small class="text-secondary">44 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PHYS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Political Science - POL S</h6>
+            <small class="text-secondary">17 courses</small>
+            <a class="stretched-link" href="/curriculum/major/POL%20S"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Portuguese - PORT</h6>
+            <small class="text-secondary">2 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PORT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Statistics &amp; Applied Probability - PSTAT</h6>
+            <small class="text-secondary">27 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PSTAT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Psychology - PSY</h6>
+            <small class="text-secondary">33 courses</small>
+            <a class="stretched-link" href="/curriculum/major/PSY"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="R" class="mt-3 text-warning fw-bold">
+                        R
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Religious Studies - RG ST</h6>
+            <small class="text-secondary">18 courses</small>
+            <a class="stretched-link" href="/curriculum/major/RG%20ST"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="S" class="mt-3 text-warning fw-bold">
+                        S
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Speech &amp; Hearing Sciences - SHS</h6>
+            <small class="text-secondary">1 courses</small>
+            <a class="stretched-link" href="/curriculum/major/SHS"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Slavic - SLAV</h6>
+            <small class="text-secondary">2 courses</small>
+            <a class="stretched-link" href="/curriculum/major/SLAV"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Sociology - SOC</h6>
+            <small class="text-secondary">25 courses</small>
+            <a class="stretched-link" href="/curriculum/major/SOC"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Spanish - SPAN</h6>
+            <small class="text-secondary">15 courses</small>
+            <a class="stretched-link" href="/curriculum/major/SPAN"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="T" class="mt-3 text-warning fw-bold">
+                        T
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Theater - THTR</h6>
+            <small class="text-secondary">15 courses</small>
+            <a class="stretched-link" href="/curriculum/major/THTR"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Technology Management - TMP</h6>
+            <small class="text-secondary">3 courses</small>
+            <a class="stretched-link" href="/curriculum/major/TMP"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+                <div class="col-12">
+                    <h2 id="W" class="mt-3 text-warning fw-bold">
+                        W
+                    </h2>
+                </div>
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Writing &amp; Literature (Creative Studies) - W&amp;L</h6>
+            <small class="text-secondary">1 courses</small>
+            <a class="stretched-link" href="/curriculum/major/W&amp;L"></a>
+        </div>
+    </div>
+
+            </div>
+        
+            
+            <div class="col-6 col-lg-4">
+            
+    <div class="rounded-3 card border-0 shadow-sm">
+        <div class="card-body">
+            <h6 class="card-title">Writing - WRIT</h6>
+            <small class="text-secondary">54 courses</small>
+            <a class="stretched-link" href="/curriculum/major/WRIT"></a>
+        </div>
+    </div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+</div>
+
+
+    <hr class="opacity-0">
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-lg-5 mb-0 text-body-secondary">NOT AFFILIATED WITH UCSB. PURELY A HOBBY PROJECT :D</p>
+
+            <a href="/"
+               class="col-lg-2 d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
+                <img src="/static/gaucho.png" alt="Logo" height="28px"
+                     class="d-inline-block align-text-top">
+                <h5 class="navy fw-bold mb-0">Platinum</h5>
+            </a>
+
+            <ul class="nav col-lg-5 justify-content-end">
+                <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a>
+                </li>
+                <li class="nav-item"><a href="/curriculum/"
+                                        class="nav-link px-2 text-body-secondary">Courses</a></li>
+                <li class="nav-item"><a href="/instructor/"
+                                        class="nav-link px-2 text-body-secondary">Professors</a></li>
+                <li class="nav-item"><a href="/ge/" class="nav-link px-2 text-body-secondary">GEs</a>
+                </li>
+                <li class="nav-item"><a href="/schedule/" class="nav-link px-2 text-body-secondary">Schedule</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<script>
+    $("img.lazyload").lazyload();
+    
+</script>
+
+</body>
+
+</html>
